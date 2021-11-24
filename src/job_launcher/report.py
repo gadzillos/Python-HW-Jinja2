@@ -1,17 +1,25 @@
 import json
 import logging
+import job_launcher
 from os import path
 from typing import Dict
+from jinja2 import Environment, PackageLoader, select_autoescape
 
 log = logging.getLogger(__name__)
 
 
 JSON_REPORT = 'job_launcher_result.json'
 
-
 def dump_json_report(data: Dict, output: str):
+    global json_data
+    json_data = data
     with open(path.join(output, JSON_REPORT), 'w') as f:
         json.dump(data, f, indent=2)
+
+
+def dump(html_report):
+    with open('jenkins_report.html', 'w') as f:
+        f.write(html_report)
 
 
 class Reporter:
@@ -30,6 +38,17 @@ class Reporter:
         )
         log.info(message)
         log.info('Finish report generation')
+        log.info('Start HTML report generation')
+        environment = Environment(
+            loader=PackageLoader(job_launcher.__name__, 'resources/templates'),
+            autoescape=select_autoescape(['html', 'xml']),
+            trim_blocks=True,
+            lstrip_blocks=True,
+        )
+        template = environment.get_template('report.html')
+        html_report = template.render(data=json_data)
+        dump(html_report)
+        log.info('Finish HTML report generation')
 
     def _load_json_report(self):
         with open(self.json_report_file) as f:
