@@ -11,7 +11,7 @@
 
 <div class="job_launcher_report">
     <h2>Job launcher report</h2>
-    <p>Jenkins server: {{  }}<P>
+    <p>Jenkins server: {{ data.server }}<P>
     <table>
         <tbody>
             <tr>
@@ -20,12 +20,12 @@
                 <th>timestamp</th>
                 <th>number</th>
             </tr>
-            {% for item in data %}
+            {% for item in data.results %}
                 <TR>
-                <TD{{ }}</TD>
-                <TD{{ }}</TD>
-                <TD{{ }}</TD>
-                <TD{{ }}</SPAN></TD>
+                <TD{{ item.name }}</TD>
+                <TD{{ item.status }}</TD>
+                <TD{{ item.result.timestamp }}</TD>
+                <TD{{ item.result.number }}</SPAN></TD>
                 </TR>
             {% endfor %}
         </tbody>
