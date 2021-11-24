@@ -22,10 +22,10 @@
             </tr>
             {% for item in data.results %}
                 <TR>
-                <TD{{ item.name }}</TD>
-                <TD{{ item.status }}</TD>
-                <TD{{ item.result.timestamp }}</TD>
-                <TD{{ item.result.number }}</SPAN></TD>
+                <TD>{{ item.name }}</TD>
+                <TD>{{ item.status }}</TD>
+                <TD>{{ item.result.timestamp }}</TD>
+                <TD>{{ item.result.number }}</SPAN></TD>
                 </TR>
             {% endfor %}
         </tbody>
