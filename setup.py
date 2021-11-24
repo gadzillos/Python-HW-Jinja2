@@ -46,6 +46,9 @@ setup(
         'requests>=2.25.1,<3',
         'jinja2==2.11.3',
     ],
+    package_data={
+        'job_launcher': ['resources/*', 'resources/templates/*']
+    },
     entry_points={
         'console_scripts': [
             'job-launcher = job_launcher.main:main'
